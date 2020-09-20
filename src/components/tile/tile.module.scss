@@ -1,0 +1,12 @@
+$tile-with: -52px;
+
+@for $i from 1 through 104 {
+  .tile-#{$i} {
+    background: url('../../assets/images/okeyTilesInRow.png') $i * $tile-with;
+    width: 52px;
+    height: 76px;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: move;
+  }
+}
