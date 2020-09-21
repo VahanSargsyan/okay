@@ -3,4 +3,5 @@ export default {
   players: [], // (player|opponent)[]
   activeTile: null, // null| Tile<color, number, type?>
   isAllGrouped: false,
+
 }

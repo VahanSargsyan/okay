@@ -1,34 +1,52 @@
-import React, { useReducer, useContext } from "react";
-import { produce } from "immer";
+import React, {useContext, useReducer} from "react";
+import {produce} from "immer";
 
-import {IS_ALL_GROUPED, GET_TILE} from "../../constants/action-types";
+import {SET_TILE, REMOVE_TILE} from "../../constants/action-types";
 
 const initialState = [
-    Array(12).fill(null),
-    Array(12).fill(null)
+  // Array(12).fill(null),
+  // Array(12).fill(null)
+
+  [null, null, null, null, null, {color: 'blue', number: 4}, {color: 'black', number: 13}, null, {color: 'red', number: 7}, null, null, null,],
+  [null, null,  {color: 'blue', number: 8}, null, null, null, {color: 'black', number: 13}, null, {color: 'yellow', number: 1}, null, null, null,]
+
 ];
 
-const GameContext = React.createContext(initialState);
+const TilesContext = React.createContext(initialState);
 
 const reducer = (state, {type, payload}) => {
   switch (type) {
-    case GET_TILE:
+  //   case TAKE_TILE:
+  //     return produce(state, (draft) => {
+  //       const {row, index} = payload;
+  //       draft[row][index] = null;
+  //     });
+    case SET_TILE:
       return produce(state, (draft) => {
-        const { row, tile, index } = payload
-        draft[row] = null;
+        const {row, index, tile} = payload;
+        if(!draft[row][index]) {
+          draft[row][index] = tile;
+        } else {
+          // todo: create logic for tile regrouping
+        }
+      });
+    case REMOVE_TILE:
+      return produce(state, (draft) => {
+        const {row, index} = payload;
+          draft[row][index] = null;
       });
     default:
       return state;
   }
 };
 
-export const useGame = () => useContext(GameContext);
+export const useTiles = () => useContext(TilesContext);
 
-export default function GameProvider({ children }) {
+export default function TilesProvider({children}) {
   const [state, dispatcher] = useReducer(reducer, initialState);
   return (
-    <GameContext.Provider value={{ state, dispatcher }}>
+    <TilesContext.Provider value={[state, dispatcher]}>
       {children}
-    </GameContext.Provider>
+    </TilesContext.Provider>
   );
 }
