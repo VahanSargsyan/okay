@@ -1,7 +1,14 @@
 import React from 'react';
 
-import { navigate } from '@reach/router';
+import {navigate} from '@reach/router';
 
-export default () => (
-    <button onClick={() => navigate('/game')}>Lets play</button>
-)
+import style from './lobby.module.css'
+import LobbyGame from "../../components/lobby-game/lobby-game";
+
+const Lobby = () => (
+  <div className={style.root}>
+    {Array(16).fill(null).map(() => <LobbyGame />)}
+  </div>
+);
+
+export default Lobby;

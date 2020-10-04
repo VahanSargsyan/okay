@@ -5,5 +5,8 @@ export const SET_ACTIVE_TILE = 'SET_ACTIVE_TILE';
 // tile context actions
 export const TAKE_TILE = 'TAKE_TILE';
 export const SET_TILE = 'SET_TILE';
+export const SET_IS_IN_GROUP = 'SET_IS_IN_GROUP';
 export const REMOVE_TILE = 'REMOVE_TILE';
 
+// table context actions
+export const DROP_TILE = 'DROP_TILE';

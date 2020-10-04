@@ -1,0 +1,11 @@
+.root {
+    width: 350px;
+    height: 80px;
+    background: black;
+    border-bottom: 4px solid grey;
+    cursor: pointer;
+    color: grey;
+    font-size: 24px;
+    font-weight: 800;
+    padding-top: 20px;
+}

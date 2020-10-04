@@ -1,0 +1,43 @@
+
+.table {
+    background: url("../../assets/images/OkeyTabe.png");
+    display: flex;
+    max-height: 525px;
+    min-height: 525px;
+    justify-content: space-between;
+    background-size: cover;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.left {
+    flex-grow: 1;
+}
+
+.center {
+    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.top {
+
+}
+
+.bank {
+
+}
+
+.bottom {
+
+}
+
+.right {
+    flex-grow: 1;
+}
+
+.top, .bottom {
+    display: flex;
+    justify-content: space-around;
+}

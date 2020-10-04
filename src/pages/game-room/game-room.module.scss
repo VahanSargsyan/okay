@@ -3,4 +3,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background: url("../../assets/images/OkeyBackground.jpg");
+  background-size: cover;
+
+}
+
+.gameContainer {
+  min-width: 919px;
+  max-width: 919px;
 }

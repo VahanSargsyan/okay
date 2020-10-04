@@ -11,6 +11,10 @@ $tile-with: -52px;
   }
 }
 
-.draging {
+.dragging {
   opacity: 0;
+}
+
+.grouped {
+  box-shadow: green 2px 2px 12px;
 }

@@ -26,9 +26,9 @@ const reducer = (state, { type, payload }) => {
 export const useGame = () => useContext(GameContext);
 
 export default function GameProvider({ children }) {
-  const [state, dispatcher] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <GameContext.Provider value={[ state, dispatcher ]}>
+    <GameContext.Provider value={[ state, dispatch ]}>
       <DndProvider backend={HTML5Backend}>{children}</DndProvider>
     </GameContext.Provider>
   );
