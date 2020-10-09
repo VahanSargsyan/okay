@@ -10,6 +10,9 @@ export const createTiles = () => {
   return [...bank, ...bank, ...bank].sort(() => Math.random() - Math.random())
 };
 
-export const getTilesSet = (bank, setCount) => bank.length > setCount
-  ? [bank, bank.splice(-setCount)]
-  : [[], bank];
+export const getTilesSet = (bank, setCount) => {
+  bank = [...bank];
+  return bank.length > setCount
+    ? [bank, bank.splice(-setCount)]
+    : [[], bank];
+};

@@ -1,4 +1,4 @@
-import {GROUP_TYPES} from "../constants/common-constants";
+import {GROUP_TYPES, ROW_LENGTH} from "../constants/common-constants";
 
 export function makeSubGroups(tilesRow) {
   return tilesRow.reduce((group, tile) => {
@@ -6,19 +6,6 @@ export function makeSubGroups(tilesRow) {
     else group[group.length - 1].push(tile);
     return group;
   }, [[]])
-}
-
-export function detectGroups(tilesRow, rowIndex) {
-  tilesRow = tilesRow.map((tile, index) => tile ? {...tile, index} : tile);
-  const subGroups = makeSubGroups(tilesRow);
-  const filteredGroup = subGroups.filter((tilesGroup) => tilesGroup.length > 2);
-  const groups = [];
-
-  filteredGroup.forEach((group) => {
-    const groupDetector = (getGroupType(...group) === GROUP_TYPES.strait) ? checkStrait : checkKare;
-    groupDetector(group) && groups.push(group);
-  });
-  return groups;
 }
 
 export function getGroupType(lastTile, currentTile) {
@@ -48,4 +35,25 @@ export function checkKare(tilesGroup) {
   }
 
   return uniqueColors.size === tilesGroup.length;
+}
+
+const getEmptyRow = (length) => Array(length).fill(null);
+const fillArrayTo = (array, to) => {
+  if (array.length > to) {
+    array.length = to;
+    return array;
+  }
+  const dif = to - array.length;
+  return array.concat(getEmptyRow(dif));
+};
+
+
+export function brokeToGroups(tilesArray) {
+  const rowLength = Math.floor(tilesArray.length / 2);
+  const firsRov = tilesArray.splice(rowLength);
+  return [
+    fillArrayTo(firsRov, ROW_LENGTH),
+    fillArrayTo(tilesArray, ROW_LENGTH),
+  ]
+  // todo add some real grouping logic
 }

@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import Tile from "../tile/tile";
 import DropZone from "../../components/dragble-zone/drop-zone";
-import {useTiles} from "../../contexts/tiles-context/tiles-context";
-import {checkKare, checkStrait, detectGroups, getGroupType, makeSubGroups} from "../../common-helpers/detect-groups";
-import {SET_IS_IN_GROUP} from "../../constants/action-types";
+import {brokeToGroups, checkKare, checkStrait, getGroupType, makeSubGroups} from "../../common-helpers/tiles-group";
+import {SET_BANK, SET_IS_IN_GROUP, SET_TILES} from "../../constants/action-types";
 import {GROUP_TYPES} from "../../constants/common-constants";
-import MakeTile from "../tile/TileMaker";
+import MakeTile from "../tile/tileMaker";
+import {useGame} from "../../contexts/game-context/game-context";
+import {getTilesSet} from "../../common-helpers/bank";
 
 function setInGroup(group, rowIndex, isInGroup, dispatch,) {
   group.forEach((tile) => dispatch({
@@ -17,10 +17,24 @@ function setInGroup(group, rowIndex, isInGroup, dispatch,) {
 }
 
 const TilesRow = ({rowIndex}) => {
-  const [state, dispatch] = useTiles();
+  const [state, dispatch] = useGame();
 
-  useEffect(()=> {
-    state.forEach((row, rowIndex) => {
+  useEffect(() => {
+    getTilesSet(state.bank, 12); // opponent tiles imitation
+    const [bank, tiles] = getTilesSet(state.bank, 12);
+    dispatch({
+      type: SET_BANK,
+      payload: bank
+    });
+    dispatch({
+      type: SET_TILES,
+      payload: brokeToGroups(tiles)
+    });
+
+  }, []);
+
+  useEffect(() => {
+    state.players.main.tiles.forEach((row, rowIndex) => {
       row = row.map((tile, index) => tile ? {...tile, index} : tile);
       const groupedRow = makeSubGroups(row);
       groupedRow.forEach((group) => {
@@ -46,8 +60,9 @@ const TilesRow = ({rowIndex}) => {
 
   return (
     <div>
-      {state[rowIndex].map((tile, index) => tile ?
-        <DropZone key={index} row={rowIndex} index={index}><MakeTile row={rowIndex} index={index} {...tile}/></DropZone> :
+      {state.players.main.tiles[rowIndex].map((tile, index) => tile ?
+        <DropZone key={index} row={rowIndex} index={index}><MakeTile row={rowIndex}
+                                                                     index={index} {...tile}/></DropZone> :
         <DropZone key={index} row={rowIndex} index={index}/>)}
     </div>
   );

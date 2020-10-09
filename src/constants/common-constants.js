@@ -22,3 +22,5 @@ export const GAME_PHASES = {
   getting: 'GETTING_PHASE',
   setting: 'SETTING_PHASE',
 };
+
+export const ROW_LENGTH = 15;

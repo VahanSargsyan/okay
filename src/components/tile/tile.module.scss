@@ -1,6 +1,6 @@
 $tile-with: -52px;
 
-@for $i from 1 through 104 {
+@for $i from 0 through 104 {
   .tile-#{$i} {
     background: url('../../assets/images/okeyTilesInRow.png') $i * $tile-with;
     width: 52px;
